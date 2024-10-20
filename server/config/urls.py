@@ -1,5 +1,5 @@
 """
-URL configuration for tiwizardbackend project.
+URL configuration for server project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("metadata_importer/", include("metadata_importer.urls")),
+    # path("metadata_importer/", include("metadata_importer.urls")),
 ]

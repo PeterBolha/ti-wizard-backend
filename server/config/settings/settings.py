@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["*"]
 ##################################################################
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 ##################################################################
@@ -40,10 +40,10 @@ REST_FRAMEWORK = {
 
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Trust & Identity Wizard API',
-    'DESCRIPTION': 'Your project description',
-    'VERSION': 'v1',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Trust & Identity Wizard API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "v1",
+    "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
 

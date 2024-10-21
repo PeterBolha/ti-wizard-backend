@@ -15,6 +15,9 @@ class FederationViewSet(
     queryset = ActiveFederation.objects.all()
     serializer_class = ActiveFederationSerializer
 
+    # TODO:- could be added later if needed: permission_classes, filterset_class (filterset_fields, ordering_fields)
+
+    # TODO:- you can add examples for extensive description of the API
     @extend_schema(description="Create a new federation")
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)

@@ -1,5 +1,6 @@
-from ..models import ActiveFederation
 from django.contrib import admin
+
+from ..models import ActiveFederation
 
 
 @admin.register(ActiveFederation)

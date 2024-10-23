@@ -1,4 +1,4 @@
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework import mixins, viewsets
 
 from ..models import ActiveFederation

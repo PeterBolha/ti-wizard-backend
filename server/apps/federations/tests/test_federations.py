@@ -1,4 +1,3 @@
-# server/apps/federations/tests/test_federations.py
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient

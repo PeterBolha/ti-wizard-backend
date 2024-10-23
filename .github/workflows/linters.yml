@@ -1,4 +1,4 @@
-name: flake8 and isort Llint
+name: flake8 and isort lint
 
 on: [push, pull_request]
 

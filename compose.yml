@@ -1,3 +1,8 @@
+x-server-env: &server-env
+    DEBUG: 'True'
+    DJANGO_SETTINGS_MODULE: config.settings
+
+
 services:
   db:
     image: postgres:13
@@ -9,16 +14,39 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   server:
-    build: ./server
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - ./server:/server
     ports:
       - "8000:8000"
+    environment:
+      <<: *server-env
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydatabase
+#  server:
+#    build: ./server
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - ./server:/server
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+#    environment:
+#      - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydatabase
 
 volumes:
   postgres_data:
+
+
+#    db:
+#      image: mongo:latest
+#      container_name: mongodb
+#      ports:
+#        - "27017:27017"
+#      environment:
+#        MONGO_INITDB_ROOT_USERNAME: root
+#        MONGO_INITDB_ROOT_PASSWORD: password

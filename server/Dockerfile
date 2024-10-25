@@ -1,21 +1,27 @@
 # Dockerfile
-FROM python:3.9-slim
+FROM python:3.12-slim
 
-ENV PYTHONUNBUFFERED=1
+# Install the required packages
+RUN mkdir /server && apt-get update && pip install poetry && poetry config virtualenvs.create false
 
-WORKDIR /code
-
-# Copy dependencies
-COPY requirements.txt /code/
-
-# Upgrade pip
-RUN pip install --upgrade pip
-
-# Install packages
-RUN pip install django-cors-headers
-
-# Install required dependencies
-RUN pip install -r requirements.txt
+# Set the working directory in the container
+WORKDIR /server
 
 
-COPY . /code/
+COPY ./server/pyproject.toml /server/
+
+# Install the dependencies
+RUN python3 -m poetry install
+
+# Copy the rest of the application code into the container
+COPY ./server /server/
+
+
+# Set environment variable for Django settings module
+ENV DJANGO_SETTINGS_MODULE=config.settings
+
+# Expose the port the app runs on
+EXPOSE 8000
+
+# Run the application
+CMD ["python3", "./manage.py", "runserver", "0.0.0.0:8000"]

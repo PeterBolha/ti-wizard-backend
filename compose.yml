@@ -1,17 +1,18 @@
 x-server-env: &server-env
-    DEBUG: 'True'
-    DJANGO_SETTINGS_MODULE: config.settings
+  DEBUG: 'True'
+  DJANGO_SETTINGS_MODULE: config.settings
 
 
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+#  db:
+#    image: mongo:latest
+#    container_name: mongodb
+#    ports:
+#      - "27017:27017"
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: myuser
+#      MONGO_INITDB_ROOT_PASSWORD: mypassword
+#      MONGO_INITDB_DATABASE: mydatabase
 
   server:
     build:
@@ -24,19 +25,8 @@ services:
       - "8000:8000"
     environment:
       <<: *server-env
-    depends_on:
-      - db
-#  server:
-#    build: ./server
-#    command: python manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - ./server:/server
-#    ports:
-#      - "8000:8000"
 #    depends_on:
 #      - db
-#    environment:
-#      - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydatabase
 
 volumes:
   postgres_data:

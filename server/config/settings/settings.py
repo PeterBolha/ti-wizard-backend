@@ -10,10 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os
-from urllib import parse
 from pathlib import Path
-from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -101,7 +98,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': urlparse(os.getenv('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'mydatabase',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb://myuser:mypassword@db:27017/mydatabase',
+        }
+    }
 }
 
 # Password validation

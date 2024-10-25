@@ -97,6 +97,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+# TODO:- mongodb settings
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',

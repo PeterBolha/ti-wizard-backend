@@ -4,6 +4,7 @@ x-server-env: &server-env
 
 
 services:
+# TODO:- mongodb settings
 #  db:
 #    image: mongo:latest
 #    container_name: mongodb
@@ -30,13 +31,3 @@ services:
 
 volumes:
   postgres_data:
-
-
-#    db:
-#      image: mongo:latest
-#      container_name: mongodb
-#      ports:
-#        - "27017:27017"
-#      environment:
-#        MONGO_INITDB_ROOT_USERNAME: root
-#        MONGO_INITDB_ROOT_PASSWORD: password

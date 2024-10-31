@@ -89,7 +89,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',  # Your React app's origin
+    'http://localhost:8080',  # Your React app's origin, to be updated (?)
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)

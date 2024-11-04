@@ -4,30 +4,30 @@ x-server-env: &server-env
 
 
 services:
-# TODO:- mongodb settings
-#  db:
-#    image: mongo:latest
-#    container_name: mongodb
-#    ports:
-#      - "27017:27017"
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: myuser
-#      MONGO_INITDB_ROOT_PASSWORD: mypassword
-#      MONGO_INITDB_DATABASE: mydatabase
+  postgres_db:
+    image: postgres:latest
+    container_name: ti_wizard_db_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   server:
     build:
       context: ./
       dockerfile: ./server/Dockerfile
-    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - ./server:/server
     ports:
       - "8000:8000"
     environment:
       <<: *server-env
-#    depends_on:
-#      - db
+    depends_on:
+      - postgres_db
 
 volumes:
   postgres_data:

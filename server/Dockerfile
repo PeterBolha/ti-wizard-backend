@@ -7,15 +7,11 @@ RUN mkdir /server && apt-get update && pip install poetry && poetry config virtu
 # Set the working directory in the container
 WORKDIR /server
 
-
-COPY ./server/pyproject.toml /server/
-
-# Install the dependencies
-RUN python3 -m poetry install
-
 # Copy the rest of the application code into the container
 COPY ./server /server/
 
+# Install the dependencies
+RUN poetry lock --no-update && poetry install && poetry update
 
 # Set environment variable for Django settings module
 ENV DJANGO_SETTINGS_MODULE=config.settings

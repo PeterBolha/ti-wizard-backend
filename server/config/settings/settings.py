@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +33,25 @@ ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
+
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(
+        minutes=int(os.environ.get('JWT_ACCESS_TOKEN_LIFETIME', 720)),
+    ),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default backend for user and admin auth
+]
 
 ##################################################################
 # DRF-Spectacular settings
@@ -69,6 +88,28 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',  # Your React app's origin, to be updated (?)
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)
+
+##################################################################
+# CSRF settings
+##################################################################
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8080',  # Ensure CSRF token is trusted for the React app
+]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'x-csrftoken',  # Make sure CSRF token is allowed in headers
+]
+
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_HTTPONLY = False
 
 ##################################################################
 # TEMPLATES settings

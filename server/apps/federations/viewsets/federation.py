@@ -1,10 +1,13 @@
 from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework import mixins, viewsets
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from ..models import ActiveFederation
 from ..serializers import ActiveFederationSerializer
 
 
+@permission_classes([IsAuthenticated])
 class FederationViewSet(
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,

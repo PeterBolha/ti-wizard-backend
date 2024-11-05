@@ -27,7 +27,7 @@ username = args.username if args.username else "user_" + get_random_string(8)
 password = args.password if args.password else get_random_string(12)
 email = args.email if args.email else f"{username}@example.com"
 
-if not User.objects.filter(username=username).exists():
+if not User.objects.filter(email=email).exists():
     User.objects.create_superuser(username=username, email=email, password=password)
     logger.info(f"Superuser created with username: {username} and password: {password}")
 else:

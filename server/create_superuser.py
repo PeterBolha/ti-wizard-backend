@@ -1,9 +1,9 @@
 # server/create_superuser.py
-import os
-import django
-import logging
 import argparse
+import logging
+import os
 
+import django
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 

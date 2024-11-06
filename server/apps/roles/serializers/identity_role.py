@@ -1,6 +1,7 @@
 # write create / update / delete methods for IdentityRoleSerializer
 
 from rest_framework import serializers
+
 from ..models import IdentityRole
 
 
@@ -21,4 +22,3 @@ class RoleUpdateStatusSerializer(serializers.ModelSerializer):
         # TODO:- archiving / deactivation logic for dependent entities
 
         return updated_role
-

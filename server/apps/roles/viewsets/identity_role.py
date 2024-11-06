@@ -1,9 +1,9 @@
 from typing import Final
 
 from django.utils.decorators import method_decorator
-from drf_spectacular.utils import OpenApiExample, extend_schema, extend_schema_view
-from rest_framework import mixins, viewsets, serializers
-from rest_framework.decorators import permission_classes, action
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import mixins, serializers, viewsets
+from rest_framework.decorators import action, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import IdentityRole

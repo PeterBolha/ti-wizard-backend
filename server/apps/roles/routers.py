@@ -1,6 +1,5 @@
-from rest_framework import routers
-
 from apps.roles.viewsets import IdentityRoleViewSet
+from rest_framework import routers
 
 roles_router = routers.DefaultRouter()
 
@@ -9,4 +8,3 @@ roles_router.register(
     viewset=IdentityRoleViewSet,
     basename="roles",
 )
-

@@ -1,7 +1,7 @@
 from typing import Final
 
 from django.utils.decorators import method_decorator
-from drf_spectacular.utils import OpenApiExample, extend_schema
+from drf_spectacular.utils import OpenApiExample, extend_schema, extend_schema_view
 from rest_framework import mixins, viewsets, serializers
 from rest_framework.decorators import permission_classes, action
 from rest_framework.permissions import IsAuthenticated
@@ -27,12 +27,23 @@ from ..serializers import IdentityRoleSerializer, RoleUpdateStatusSerializer
     ),
 )
 @method_decorator(
+    name='update',
+    decorator=extend_schema(
+        tags=['roles'],
+        summary='Update identity role details',
+
+    ),
+)
+@method_decorator(
     name='destroy',
     decorator=extend_schema(
         tags=['roles'],
         summary='Delete identity role',
 
     ),
+)
+@extend_schema_view(
+    partial_update=extend_schema(exclude=True)
 )
 @permission_classes([IsAuthenticated])
 class IdentityRoleViewSet(
@@ -49,13 +60,12 @@ class IdentityRoleViewSet(
         'create': IdentityRoleSerializer,
         'list': IdentityRoleSerializer,
         'retrieve': IdentityRoleSerializer,
-        'activate': RoleUpdateStatusSerializer
-        # 'update': RecurringIssueUpdateSerializer,
+        'activate': RoleUpdateStatusSerializer,
+        'update': IdentityRoleSerializer,
     }
 
     def get_serializer_class(self) -> type[serializers.Serializer]:
         return self.SERIALIZER_MAP[self.action]
-
 
     @extend_schema(summary="List all identity roles")
     def list(self, request, *args, **kwargs):

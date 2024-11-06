@@ -18,7 +18,7 @@ class RoleUpdateStatusSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data: dict):
         updated_role = super().update(instance, validated_data)
-
+        # TODO:- state check for concurrent usage (model + migration update)
         # TODO:- archiving / deactivation logic for dependent entities
 
         return updated_role

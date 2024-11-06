@@ -9,3 +9,4 @@ federations_router.register(
     viewset=FederationViewSet,
     basename="federations",
 )
+

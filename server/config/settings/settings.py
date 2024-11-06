@@ -25,7 +25,10 @@ SECRET_KEY = "django-insecure-8dk#p63v7&n!vy4hiab$%ro!0%rbhuy5jgxqkl+s2vd8&&v+56
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 
 ##################################################################
 # DRF settings
@@ -88,11 +91,12 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:8000",
-
+    "http://127.0.0.1:8000",
 ]
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',  # Your React app's origin, to be updated (?)
     "http://localhost:8000",
+    "http://127.0.0.1:8000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)

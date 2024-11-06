@@ -1,1 +1,1 @@
-from .identity_role import IdentityRoleSerializer
+from .identity_role import IdentityRoleSerializer, RoleUpdateStatusSerializer

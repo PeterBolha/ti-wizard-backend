@@ -7,15 +7,11 @@ RUN mkdir /server && apt-get update && pip install poetry && poetry config virtu
 # Set the working directory in the container
 WORKDIR /server
 
-
-COPY ./server/pyproject.toml /server/
-
-# Install the dependencies
-RUN python3 -m poetry install
-
 # Copy the rest of the application code into the container
 COPY ./server /server/
 
+# Install the dependencies
+RUN poetry lock --no-update && poetry install && poetry update
 
 # Set environment variable for Django settings module
 ENV DJANGO_SETTINGS_MODULE=config.settings
@@ -24,4 +20,4 @@ ENV DJANGO_SETTINGS_MODULE=config.settings
 EXPOSE 8000
 
 # Run the application
-CMD ["sh", "-c", "python3 ./manage.py migrate && python3 ./manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python3 ./manage.py migrate && python3 /server/create_superuser.py  --email=real.mail@gmail.com  && python3 ./manage.py runserver 0.0.0.0:8000"]

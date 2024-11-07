@@ -1,6 +1,9 @@
 x-server-env: &server-env
   DEBUG: 'True'
   DJANGO_SETTINGS_MODULE: config.settings
+  SUPERUSER_USERNAME: admin3
+  SUPERUSER_EMAIL: admin3@example.com
+  SUPERUSER_PASSWORD: admin3password
 
 
 services:

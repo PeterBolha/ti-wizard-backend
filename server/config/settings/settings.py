@@ -26,8 +26,9 @@ SECRET_KEY = "django-insecure-8dk#p63v7&n!vy4hiab$%ro!0%rbhuy5jgxqkl+s2vd8&&v+56
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
+    # "127.0.0.1",
+    # "localhost",
+    "*"
 ]
 
 ##################################################################
@@ -88,26 +89,26 @@ MIDDLEWARE = [
 # CORS settings
 ##################################################################
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-]
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',  # Your React app's origin, to be updated (?)
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-]
-
-CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)
-
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PATCH',
-    'DELETE',
-    'OPTIONS',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+# ]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:8080',  # Your React app's origin, to be updated (?)
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+# ]
+#
+# CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)
+#
+# CORS_ALLOW_METHODS = [
+#     'GET',
+#     'POST',
+#     'PATCH',
+#     'DELETE',
+#     'OPTIONS',
+# ]
 
 ##################################################################
 # CSRF settings
@@ -117,11 +118,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',  # Ensure CSRF token is trusted for the React app
 ]
 
-CORS_ALLOW_HEADERS = [
-    'authorization',
-    'content-type',
-    'x-csrftoken',  # Make sure CSRF token is allowed in headers
-]
+# CORS_ALLOW_HEADERS = [
+#     'authorization',
+#     'content-type',
+#     'x-csrftoken',  # Make sure CSRF token is allowed in headers
+# ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_COOKIE_HTTPONLY = False

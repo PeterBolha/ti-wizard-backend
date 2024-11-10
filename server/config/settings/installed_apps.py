@@ -15,6 +15,7 @@ INSTALLED_APPS = [
 LOCAL_APPS = [
     "apps.federations",
     "apps.roles",
+    "apps.core",
 ]
 
 INSTALLED_APPS += LOCAL_APPS

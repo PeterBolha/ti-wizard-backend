@@ -13,6 +13,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from json_log_formatter import JSONFormatter
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -80,10 +82,66 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "apps.core.middleware.api_logging_middleware.APILoggingMiddleware",
+
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
 ]
+
+##################################################################
+# LOGGING settings
+##################################################################
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+            "formatter": "verbose",
+        },
+        "api_file": {
+            "class": "logging.FileHandler",
+            "filename": "api.json",
+            "formatter": "json",
+        },
+        "exception_file": {
+            "class": "logging.FileHandler",
+            "filename": "exceptions.log",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["console", "file"],
+            "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
+        },
+        "api_logger": {
+            "handlers": ["api_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "exception_logger": {
+            "handlers": ["exception_file"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{asctime} ({levelname})- {name}- {message}",
+            "style": "{",
+        },
+        "json": {
+            "()": JSONFormatter,
+        },
+    },
+}
 
 ##################################################################
 # CORS settings

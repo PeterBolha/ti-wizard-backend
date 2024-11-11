@@ -11,40 +11,34 @@ from ..serializers import IdentityRoleSerializer, RoleUpdateStatusSerializer
 
 
 @method_decorator(
-    name='create',
+    name="create",
     decorator=extend_schema(
-        tags=['roles'],
-        summary='Create identity role',
-
+        tags=["roles"],
+        summary="Create identity role",
     ),
 )
 @method_decorator(
-    name='retrieve',
+    name="retrieve",
     decorator=extend_schema(
-        tags=['roles'],
-        summary='Retrieve identity role',
-
+        tags=["roles"],
+        summary="Retrieve identity role",
     ),
 )
 @method_decorator(
-    name='update',
+    name="update",
     decorator=extend_schema(
-        tags=['roles'],
-        summary='Update identity role details',
-
+        tags=["roles"],
+        summary="Update identity role details",
     ),
 )
 @method_decorator(
-    name='destroy',
+    name="destroy",
     decorator=extend_schema(
-        tags=['roles'],
-        summary='Delete identity role',
-
+        tags=["roles"],
+        summary="Delete identity role",
     ),
 )
-@extend_schema_view(
-    partial_update=extend_schema(exclude=True)
-)
+@extend_schema_view(partial_update=extend_schema(exclude=True))
 @permission_classes([IsAuthenticated])
 class IdentityRoleViewSet(
     mixins.CreateModelMixin,
@@ -57,11 +51,11 @@ class IdentityRoleViewSet(
     queryset = IdentityRole.objects.all()
 
     SERIALIZER_MAP: Final[dict[str, type[serializers.Serializer]]] = {
-        'create': IdentityRoleSerializer,
-        'list': IdentityRoleSerializer,
-        'retrieve': IdentityRoleSerializer,
-        'activate': RoleUpdateStatusSerializer,
-        'update': IdentityRoleSerializer,
+        "create": IdentityRoleSerializer,
+        "list": IdentityRoleSerializer,
+        "retrieve": IdentityRoleSerializer,
+        "activate": RoleUpdateStatusSerializer,
+        "update": IdentityRoleSerializer,
     }
 
     def get_serializer_class(self) -> type[serializers.Serializer]:
@@ -72,6 +66,6 @@ class IdentityRoleViewSet(
         return super().list(request, *args, **kwargs)
 
     @extend_schema(summary="Change active status for identity role")
-    @action(methods=('PATCH',), detail=True)
+    @action(methods=("PATCH",), detail=True)
     def activate(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)

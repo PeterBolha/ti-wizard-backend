@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,17 +14,57 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='IdentityRole',
+            name="IdentityRole",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('entity_type', models.CharField(choices=[('SAML_IDP', 'SAML IDP'), ('SAML_SP', 'SAML SP'), ('OIDC_OP', 'OIDC OP'), ('OIDC_RP', 'OIDC RP')], max_length=50)),
-                ('is_active', models.BooleanField(default=False)),
-                ('display_name', models.CharField(max_length=50)),
-                ('logo_image', models.ImageField(blank=True, null=True, upload_to='identity_roles/')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('created_by', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='created_identity_roles', to=settings.AUTH_USER_MODEL)),
-                ('updated_by', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='updated_identity_roles', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "entity_type",
+                    models.CharField(
+                        choices=[
+                            ("SAML_IDP", "SAML IDP"),
+                            ("SAML_SP", "SAML SP"),
+                            ("OIDC_OP", "OIDC OP"),
+                            ("OIDC_RP", "OIDC RP"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=False)),
+                ("display_name", models.CharField(max_length=50)),
+                (
+                    "logo_image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="identity_roles/"
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="created_identity_roles",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "updated_by",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="updated_identity_roles",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

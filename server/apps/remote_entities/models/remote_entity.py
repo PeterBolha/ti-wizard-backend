@@ -49,14 +49,16 @@ class RemoteEntity(models.Model):
             if not self.entity_id:
                 raise ValidationError(
                     {
-                        "entity_id": f"Entity ID must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        "entity_id": f"Entity ID must be set for "
+                                     f"{ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
             if not self.metadata_url:
                 raise ValidationError(
                     {
-                        "metadata_url": f"Metadata URL must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        "metadata_url": f"Metadata URL mus"
+                                        f"t be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -64,7 +66,8 @@ class RemoteEntity(models.Model):
             if not self.discovery_url:
                 raise ValidationError(
                     {
-                        "discovery_url": f"Discovery URL must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        "discovery_url": f"Discovery URL "
+                                         f"must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -72,7 +75,8 @@ class RemoteEntity(models.Model):
             if not self.redirect_uri:
                 raise ValidationError(
                     {
-                        "redirect_uri": f"Redirect URI must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        "redirect_uri": f"Redirect URI"
+                                        f" must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -81,8 +85,8 @@ class RemoteEntity(models.Model):
                     raise ValidationError(
                         {
                             "client_id": f"OIDC Client ID must be set for "
-                            f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic "
-                            f"registration is not available."
+                                         f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic "
+                                         f"registration is not available."
                         }
                     )
 
@@ -90,15 +94,17 @@ class RemoteEntity(models.Model):
                     raise ValidationError(
                         {
                             "client_secret": f"Client secret must be set for OIDC Client secret "
-                            f"must be set for {ENTITY_TYPE_CHOICES[self.entity_type]} "
-                            f"when dynamic registration is not available."
+                                             f"must be set for "
+                                             f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic"
+                                             f" registration is not available."
                         }
                     )
         else:
             raise ValidationError(
                 {
-                    "entity_type": f"Unknown entity type: '{self.entity_type}' Entity type must be one of "
-                    f"{list(ENTITY_TYPE_CHOICES.keys())}"
+                    "entity_type": f"Unknown entity type: '{self.entity_type}' Entity type must "
+                                   f"be one of "
+                                   f"{list(ENTITY_TYPE_CHOICES.keys())}"
                 }
             )
 

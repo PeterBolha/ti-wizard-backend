@@ -7,14 +7,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
-    'rest_framework_simplejwt',
+    "rest_framework_simplejwt",
     "drf_spectacular",
-
 ]
 
 LOCAL_APPS = [
     "apps.federations",
     "apps.roles",
+    "apps.remote_entities",
 ]
 
 INSTALLED_APPS += LOCAL_APPS

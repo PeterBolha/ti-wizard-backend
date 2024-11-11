@@ -1,7 +1,6 @@
+from apps.entity_types import ENTITY_TYPE_CHOICES_DJANGO
 from django.conf import settings
 from django.db import models
-
-from apps.entity_types import ENTITY_TYPE_CHOICES_DJANGO
 
 
 class IdentityRole(models.Model):

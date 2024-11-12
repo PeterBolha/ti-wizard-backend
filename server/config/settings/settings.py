@@ -41,20 +41,20 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 
 SIMPLE_JWT = {
-    'ROTATE_REFRESH_TOKENS': True,
-    'ACCESS_TOKEN_LIFETIME': timedelta(
-        minutes=int(os.environ.get('JWT_ACCESS_TOKEN_LIFETIME', 720)),
+    "ROTATE_REFRESH_TOKENS": True,
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.environ.get("JWT_ACCESS_TOKEN_LIFETIME", 720)),
     ),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Default backend for user and admin auth
+    "django.contrib.auth.backends.ModelBackend",  # Default backend for user and admin auth
 ]
 
 ##################################################################
@@ -95,7 +95,7 @@ MIDDLEWARE = [
 #     "http://127.0.0.1:8000",
 # ]
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',  # Your React app's origin, to be updated (?)
+    "http://localhost:8080",  # Your React app's origin, to be updated (?)
     "http://localhost:8000",
     "http://127.0.0.1:8000",
 ]
@@ -103,11 +103,11 @@ CORS_ORIGIN_WHITELIST = [
 # CORS_ALLOW_CREDENTIALS = True  # Allow credentials (sessions)
 
 CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PATCH',
-    'DELETE',
-    'OPTIONS',
+    "GET",
+    "POST",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
 ]
 
 ##################################################################
@@ -115,7 +115,7 @@ CORS_ALLOW_METHODS = [
 ##################################################################
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8080',  # Ensure CSRF token is trusted for the React app
+    "http://localhost:8080",  # Ensure CSRF token is trusted for the React app
 ]
 
 # CORS_ALLOW_HEADERS = [
@@ -124,7 +124,7 @@ CSRF_TRUSTED_ORIGINS = [
 #     'x-csrftoken',  # Make sure CSRF token is allowed in headers
 # ]
 
-CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_HTTPONLY = False
 
 ##################################################################
@@ -156,13 +156,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'mydatabase'),
-        'USER': os.getenv('POSTGRES_USER', 'myuser'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'mypassword'),
-        'HOST': os.getenv('POSTGRES_HOST', 'postgres_db'),
-        'PORT': 5432,
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB", "mydatabase"),
+        "USER": os.getenv("POSTGRES_USER", "myuser"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "mypassword"),
+        "HOST": os.getenv("POSTGRES_HOST", "postgres_db"),
+        "PORT": 5432,
     }
 }
 

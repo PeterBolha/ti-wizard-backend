@@ -1,11 +1,10 @@
-from django_webhook.models import Webhook, WebhookSecret, WebhookTopic
-
 import base64
 import logging
 import os
 import secrets
 
 import django
+from django_webhook.models import Webhook, WebhookSecret, WebhookTopic
 
 django.setup()
 

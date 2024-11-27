@@ -4,6 +4,9 @@ x-server-env: &server-env
   SUPERUSER_USERNAME: admin3
   SUPERUSER_EMAIL: admin3@example.com
   SUPERUSER_PASSWORD: admin3password
+  WEBHOOK_URL: http://host.docker.internal:5000/remote-entity-update
+  WEBHOOK_SECRET: b1RETKgYo6QeaIEDsYiUalpVoPw-XG0wfjPxmn6mNJk
+  DELETE_PREVIOUS_WEBHOOKS: True
 
 
 services:
@@ -19,6 +22,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7.4
+    ports:
+      - "6397:6397"
+
+  celery_worker:
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile
+    command: celery -A config.settings.celery:app worker -Q celery,webhooks
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+
   server:
     build:
       context: ./
@@ -31,6 +49,8 @@ services:
       <<: *server-env
     depends_on:
       - postgres_db
+      - redis
+      - celery_worker
 
 volumes:
   postgres_data:

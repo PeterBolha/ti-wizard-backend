@@ -19,5 +19,10 @@ ENV DJANGO_SETTINGS_MODULE=config.settings
 # Expose the port the app runs on
 EXPOSE 8000
 
+# Install curl for the startscript to check if the server is alraedy up
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Run the application
-CMD ["sh", "-c", "python3 ./manage.py migrate && python3 /server/create_superuser.py  --email=real.mail@gmail.com  && python3 ./manage.py runserver 0.0.0.0:8000"]
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+CMD ["sh", "/start.sh"]

@@ -1,3 +1,5 @@
+from django_webhook.models import Webhook, WebhookSecret, WebhookTopic
+
 import base64
 import logging
 import os
@@ -7,7 +9,6 @@ import django
 
 django.setup()
 
-from django_webhook.models import Webhook, WebhookSecret, WebhookTopic
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

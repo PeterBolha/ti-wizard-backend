@@ -4,10 +4,11 @@ import os
 import secrets
 
 import django
-from django_webhook.models import Webhook, WebhookSecret, WebhookTopic
 
 django.setup()
 
+from django_webhook.models import WebhookTopic  # noqa: E402
+from django_webhook.models import Webhook, WebhookSecret  # noqa: E402
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

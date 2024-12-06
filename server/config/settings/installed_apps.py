@@ -9,13 +9,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
+    "django_webhook",
 ]
 
-LOCAL_APPS = [
-    "apps.federations",
-    "apps.roles",
-    "apps.remote_entities",
-]
+LOCAL_APPS = ["apps.federations", "apps.roles", "apps.remote_entities"]
 
 INSTALLED_APPS += LOCAL_APPS
 
@@ -26,3 +23,5 @@ MIGRATION_PATH = "config.migrations."  # Path to the centralised migration dir
 MIGRATION_MODULES = {
     app_name: MIGRATION_PATH + app_name for app_name in LOCAL_MIGRATIONS
 }
+
+DJANGO_WEBHOOK = dict(MODELS=["remote_entities.RemoteEntity"])

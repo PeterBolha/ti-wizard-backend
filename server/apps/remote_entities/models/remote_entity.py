@@ -1,7 +1,23 @@
+import hashlib
+
 from apps.entity_types import ENTITY_TYPE_CHOICES, ENTITY_TYPE_CHOICES_DJANGO
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+
+
+def get_sha256_hash(data_to_hash: str) -> str:
+    return hashlib.sha256(data_to_hash.encode("utf-8")).hexdigest()
+
+
+def generate_id_hash(entity_type: str, entity_id: str = "", client_id: str = "") -> str:
+    if entity_type.startswith("SAML"):
+        return get_sha256_hash(entity_id)
+
+    if entity_type.startswith("OIDC"):
+        return get_sha256_hash(client_id)
+
+    return ""
 
 
 class RemoteEntity(models.Model):
@@ -21,6 +37,10 @@ class RemoteEntity(models.Model):
     client_secret = models.TextField(blank=True, default="")
     redirect_uri = models.TextField(blank=True, default="")
     dynamic_registration = models.BooleanField(default=False)
+
+    # SHA256 hash of either entity id for SAML entities or client id for OIDC entities to provide
+    # a uniform identifier shared amongst all the system components
+    id_hash = models.CharField(max_length=64, unique=True, blank=False, null=False)
 
     is_active = models.BooleanField(default=False)
     comment = models.TextField(blank=True, default="")
@@ -50,7 +70,7 @@ class RemoteEntity(models.Model):
                 raise ValidationError(
                     {
                         "entity_id": f"Entity ID must be set for "
-                                     f"{ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        f"{ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -58,7 +78,7 @@ class RemoteEntity(models.Model):
                 raise ValidationError(
                     {
                         "metadata_url": f"Metadata URL mus"
-                                        f"t be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        f"t be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -67,7 +87,7 @@ class RemoteEntity(models.Model):
                 raise ValidationError(
                     {
                         "discovery_url": f"Discovery URL "
-                                         f"must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        f"must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -76,7 +96,7 @@ class RemoteEntity(models.Model):
                 raise ValidationError(
                     {
                         "redirect_uri": f"Redirect URI"
-                                        f" must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
+                        f" must be set for {ENTITY_TYPE_CHOICES[self.entity_type]}"
                     }
                 )
 
@@ -85,8 +105,8 @@ class RemoteEntity(models.Model):
                     raise ValidationError(
                         {
                             "client_id": f"OIDC Client ID must be set for "
-                                         f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic "
-                                         f"registration is not available."
+                            f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic "
+                            f"registration is not available."
                         }
                     )
 
@@ -94,20 +114,25 @@ class RemoteEntity(models.Model):
                     raise ValidationError(
                         {
                             "client_secret": f"Client secret must be set for OIDC Client secret "
-                                             f"must be set for "
-                                             f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic"
-                                             f" registration is not available."
+                            f"must be set for "
+                            f"{ENTITY_TYPE_CHOICES[self.entity_type]} when dynamic"
+                            f" registration is not available."
                         }
                     )
+
         else:
             raise ValidationError(
                 {
                     "entity_type": f"Unknown entity type: '{self.entity_type}' Entity type must "
-                                   f"be one of "
-                                   f"{list(ENTITY_TYPE_CHOICES.keys())}"
+                    f"be one of "
+                    f"{list(ENTITY_TYPE_CHOICES.keys())}"
                 }
             )
 
     def save(self, *args, **kwargs):
         self.full_clean()
+        if not self.id_hash:
+            self.id_hash = generate_id_hash(
+                str(self.entity_type), str(self.entity_id), str(self.client_id)
+            )
         super().save(*args, **kwargs)
